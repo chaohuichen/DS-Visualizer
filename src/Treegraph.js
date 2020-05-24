@@ -27,6 +27,10 @@ let data = {
     },
     {
       name: 'Child Two',
+      children: [
+        {name: 6},
+        {name: 7}
+      ]
     },
   ],
 };
@@ -43,6 +47,11 @@ function Treegraph() {
           transform: 'rotate(90)',
           className: 'custom',
         }}
+        textProps={{
+          x: "-28.5px"
+        }}
+        pathFunc={(x1, y1, x2, y2) =>
+          `M${y1},${x1} ${y2},${x2}`}
       />
     </>
   );
