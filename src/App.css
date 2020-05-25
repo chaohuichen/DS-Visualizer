@@ -3,28 +3,21 @@ div.custom-container {
 }
 
 svg.custom .node circle {
+  margin-top: 10px;
   height: 200px;
-  width: 50%;
-  width: 50px;
   stroke: #2593b8;
-  z-index: -1;
   position: absolute;
 }
 
 svg.custom .node text {
-  opacity: 0.8;
   font-size: 15px;
-  position: absolute;
-  z-index: -1;
   background-color: #444;
-  margin-left: 10px;
   fill: #161414;
   transform: rotate(270deg);
   text-shadow: 0 1px 4px black;
 }
 
 svg.custom .node {
-  position: relative;
   cursor: pointer;
 }
 
