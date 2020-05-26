@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-import Tree from 'react-d3-tree';
+import React, { useState } from "react";
+import Tree from "react-d3-tree";
 const myTreeData = [
   {
-    name: '1',
+    name: "1",
 
     children: [
       {
-        name: '2',
+        name: "2",
       },
       {
-        name: '3',
+        name: "3",
       },
     ],
   },
 ];
-const svgSquare = { shape: 'circle', shapeProps: { r: 20 } };
+const svgSquare = { shape: "circle", shapeProps: { r: 20 } };
 function D3Tree() {
   const [data, setData] = useState([
     {
-      name: '1',
+      name: "1",
 
       children: [
         {
-          name: '2',
+          name: "2",
         },
         {
-          name: '3',
+          name: "3",
         },
       ],
     },
@@ -38,7 +38,7 @@ function D3Tree() {
       if (idx === n) return;
       let val = preorder[idx];
       if (val < lower || val > upper) return;
-      let newNode = { name: '' + val, children: [] };
+      let newNode = { name: "" + val, children: [] };
       idx++;
       let left = helper(lower, val);
       if (left) newNode.children[0] = left;
@@ -52,20 +52,23 @@ function D3Tree() {
     setData([a]);
   };
   return (
-    <div id='treeWrapper' style={{ width: '150em', height: '50em' }}>
-      <Tree
-        data={data}
-        orientation='vertical'
-        circleRadius={20}
-        textLayout={{
-          textAnchor: 'start',
-          x: -5,
-          y: 0,
-          transform: undefined,
-        }}
-      />
-      <button onClick={() => insert()}>Click</button>
-    </div>
+    <section className="main-container">
+      <div id="treeWrapper" style={{ height: "50em", width: "100%" }}>
+        <Tree
+          data={data}
+          translate={{x:100, y: 50}}
+          orientation="vertical"
+          circleRadius={20}
+          textLayout={{
+            textAnchor: "start",
+            x: -5,
+            y: 0,
+            transform: undefined,
+          }}
+        />
+      </div>
+      <button style={{height: "fit-content"}} onClick={() => insert()}>Click</button>
+    </section>
   );
 }
 
