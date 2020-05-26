@@ -43,7 +43,7 @@ function D3Tree() {
       ],
     },
   ]);
-  let dummyData = [8, 5, 1, 7, 10, 12];
+  let dummyData = [3,9,20,null,null,15,7, 10, 11, null, null, 100];
   //function to build a tree
   const buildTree = () => {
     const arr = dummyData.slice();
