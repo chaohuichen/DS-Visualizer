@@ -43,12 +43,14 @@ function D3Tree() {
       ],
     },
   ]);
-  let dummyData = [3,9,20,null,null,15,7, 10, 11, null, null, 100];
+  let dummyData = [1, 2, null, null, 5, null, 7, 8];
   //function to build a tree
   const buildTree = () => {
     const arr = dummyData.slice();
     let len = arr.length;
     let i = 0;
+    let left = 1 // i * 2 + 1;
+    let right = 2 // i * 2 + 2;
     let node;
     while (i < len) {
       if (typeof arr[i] === "object" && arr[i] !== null) {
@@ -61,14 +63,12 @@ function D3Tree() {
         node = { name: "" + arr[i], children: [] };
         arr[i] = node;
       }
-      console.log(i, arr, node);
-      let left = i * 2 + 1;
-      let right = i * 2 + 2;
+      console.log(i, left, right, arr, node);
       if (left < len && arr[left] !== null && node !== null) {
         node.children[0] = { name: "" + arr[left], children: [] };
         arr[left] = node.children[0];
       }
-      if (right < len && arr[right] !== null && node !== null) {
+      if(right < len && arr[right] !== null && node !== null) {
         if (!node.children[0]) {
           node.children[0] = { name: "" + arr[right], children: [] };
           arr[right] = node.children[0];
@@ -78,6 +78,8 @@ function D3Tree() {
         }
       }
       i++;
+      left += 2
+      right += 2
     }
     setHeap(arr[0]);
     console.log("HEAP ", heapData, arr);
@@ -121,7 +123,7 @@ function D3Tree() {
         />
       </div>
       {/* <button style={{height: "fit-content"}} onClick={() => insert()}>Click</button> */}
-      <button style={{ height: "fit-content" }} onClick={() => buildTree()}>
+      <button key="bKey" style={{ height: "fit-content" }} onClick={() => buildTree()}>
         Click
       </button>
     </section>

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Treegraph from './Treegraph';
+// import Treegraph from './Treegraph';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNavbar from './Navbar';
 import D3Tree from './D3Tree';
