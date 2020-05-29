@@ -5,7 +5,14 @@ import { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 import { sleep, genernrateRandomArray } from './ult.js';
 import { svgCircle, style, singleStyle, visitedStyle } from './treeStyle';
-
+import {
+  Button,
+  TextField,
+  Select,
+  FormControl,
+  MenuItem,
+  InputLabel,
+} from '@material-ui/core';
 const width = window.screen.width;
 const height = window.screen.height;
 
@@ -154,23 +161,49 @@ function D3Tree() {
   return (
     <div id='treeWrapper' className='treeWapper'>
       <div className='myheader'>
-        <h4>DS-Visualizer</h4>
+        <h3>DS-Visualizer</h3>
         <label>
-          Input: <input type='text' name='input' onChange={handleChange} />
+          <TextField
+            label=' Input your array:'
+            variant='filled'
+            type='text'
+            name='input'
+            className='ipttext'
+            onChange={handleChange}
+          />
         </label>
-        <button key='bKey' onClick={() => buildTree(validateDate())}>
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={() => buildTree(validateDate())}
+        >
           GenerateTree
-        </button>
-        <button key='aKey' onClick={() => dfs(heapData)}>
-          InorderDFS
-        </button>
-        <button
-          key='cKey'
+        </Button>
+        <Button
+          variant='contained'
+          color='primary'
           onClick={() => {
             buildTree(genernrateRandomArray());
           }}
         >
           RandomTree
+        </Button>
+        <FormControl>
+          <InputLabel id='demo-customized-select-label'>
+            DFS Travseral
+          </InputLabel>
+          <Select
+            labelId='demo-customized-select-label'
+            id='demo-customized-select'
+            className='menuitem'
+          >
+            <MenuItem value={'preorder'}>Pre-Order</MenuItem>
+            <MenuItem value={'inorder'}>In-Order</MenuItem>
+            <MenuItem value={'postorder'}>Post-Order</MenuItem>
+          </Select>
+        </FormControl>
+        <button key='aKey' onClick={() => dfs(heapData)}>
+          Go!
         </button>
       </div>
       <ReactNotification />
