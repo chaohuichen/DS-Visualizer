@@ -4,41 +4,7 @@ import ReactNotification from 'react-notifications-component';
 import { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 import { sleep, genernrateRandomArray } from './ult.js';
-
-//styling
-const svgCircle = {
-  shape: 'circle',
-  shapeProps: { r: 20, stroke: 'red', fill: 'red' },
-};
-const style = {
-  links: { stroke: 'blue', strokeWidth: 2 },
-  nodes: {
-    node: {
-      circle: {},
-      name: {},
-      attributes: {},
-    },
-    leafNode: {
-      circle: {},
-      name: {},
-      attributes: {},
-    },
-  },
-};
-const singleStyle = {
-  shape: 'circle',
-  shapeProps: {
-    r: 20,
-    fill: 'blue',
-  },
-};
-const visitedStyle = {
-  shape: 'circle',
-  shapeProps: {
-    r: 20,
-    fill: 'green',
-  },
-};
+import { svgCircle, style, singleStyle, visitedStyle } from './treeStyle';
 
 const width = window.screen.width;
 const height = window.screen.height;
@@ -52,7 +18,6 @@ function D3Tree() {
     },
   ]);
   const [inputData, setInput] = useState([]);
-  const [toggle, setToggle] = useState(true);
 
   const handleChange = (event) => {
     setInput(event.target.value);
@@ -102,24 +67,12 @@ function D3Tree() {
     }
     return dummyData;
   };
-  const genernateData = () => {
-    let arr;
-    console.log(toggle, arr);
-    if (toggle) {
-      //if toggle true, use the data from the userinput
-      arr = validateDate();
-    } else {
-      //if not, then use the random array
-      arr = genernrateRandomArray();
-      console.log('i am here', genernrateRandomArray());
-    }
-    // buildTree(arr);
-  };
 
   //function to build a tree
   const buildTree = async (array) => {
+    if (!array) return;
     const arr = array.slice();
-    if (!arr) return;
+
     let len = arr.length;
     let i = 0;
     let left = 1; // i * 2 + 1;
@@ -140,8 +93,9 @@ function D3Tree() {
       if (left < len && arr[left] !== null && node !== null) {
         node.children[0] = { name: '' + arr[left], children: [] };
         arr[left] = node.children[0];
+
         setHeap({ ...arr[0] });
-        await sleep(1000);
+        await sleep(800);
       }
       if (right < len && arr[right] !== null && node !== null) {
         if (!node.children[0]) {
@@ -149,12 +103,13 @@ function D3Tree() {
           arr[right] = node.children[0];
 
           setHeap({ ...arr[0] });
-          await sleep(1000);
+          await sleep(800);
         } else {
           node.children[1] = { name: '' + arr[right], children: [] };
           arr[right] = node.children[1];
+
           setHeap({ ...arr[0] });
-          await sleep(1000);
+          await sleep(800);
         }
       }
 
@@ -167,31 +122,37 @@ function D3Tree() {
   const dfs = async (root) => {
     let node = root;
     let prev = null;
+
     if (!node || node === 'undefined') return;
     let stack = [];
+
     while (stack.length || node) {
       while (node) {
         stack.push(node);
         if (node.children.length) node = node.children[0];
         else node = null;
       }
+
       if (node !== stack[stack.length - 1]) node = stack.pop();
       else node = null;
       node.nodeSvgShape = singleStyle;
+
+      //color effect
       if (prev) prev.nodeSvgShape = visitedStyle;
       prev = node;
-      console.log(node.name);
       setHeap({ ...heapData });
       await sleep(800);
+
       if (node.children[1]) node = node.children[1];
       else node = null;
     }
+    //color effect
     if (prev) prev.nodeSvgShape = visitedStyle;
     setHeap({ ...heapData });
   };
 
   return (
-    <div id='treeWrapper' style={{ width: '100%', height: '100vh' }}>
+    <div id='treeWrapper' className='treeWapper'>
       <div className='myheader'>
         <h4>DS-Visualizer</h4>
         <label>
