@@ -26,3 +26,13 @@ svg.custom path.link {
   stroke: #2593b8;
   stroke-width: 1.5px;
 }
+
+.myheader {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
