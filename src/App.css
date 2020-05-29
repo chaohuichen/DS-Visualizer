@@ -33,6 +33,12 @@ svg.custom path.link {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(5px + 2vmin);
   color: white;
+  height: fit-content;
+}
+
+.treeWapper {
+  width: 100%;
+  height: 90vh;
 }
