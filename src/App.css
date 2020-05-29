@@ -28,7 +28,7 @@ svg.custom path.link {
 }
 
 .myheader {
-  background-color: #282c34;
+  background-color: #ffae42;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -41,4 +41,15 @@ svg.custom path.link {
 .treeWapper {
   width: 100%;
   height: 90vh;
+}
+.treeWapper h3 {
+  color: #8a2be2;
+  font-weight: bold;
+}
+
+.ipttext {
+  width: 25ch;
+}
+.menuitem {
+  width: 20ch;
 }
