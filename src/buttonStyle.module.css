@@ -1,0 +1,8 @@
+.mymuibutton {
+  text-transform: none;
+  width: 10vw;
+}
+.mymuibutton :hover {
+  background-color: #00bcd4 !important;
+  color: #fff;
+}
