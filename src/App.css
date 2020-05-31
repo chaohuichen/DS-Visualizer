@@ -55,6 +55,7 @@ svg.custom path.link {
 }
 
 .ipttext {
+  padding-top: 0.5rem;
   width: 25ch;
 }
 .menuitem {

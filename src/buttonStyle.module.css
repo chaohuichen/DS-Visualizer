@@ -1,8 +1,15 @@
-.mymuibutton {
+.button {
+  background: linear-gradient(to right, #fe6b8b 50%, #ff8e53 50%);
+
+  color: white;
+  padding: 0 30px;
+  display: block;
+  height: 2rem;
   text-transform: none;
-  width: 10vw;
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-out;
 }
-.mymuibutton :hover {
-  background-color: #00bcd4 !important;
-  color: #fff;
+.button:hover {
+  background-position: left bottom;
 }
