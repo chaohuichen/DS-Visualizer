@@ -1,9 +1,9 @@
 export const genernrateRandomArray = () => {
   let array = [];
-  let size = Math.floor(Math.random() * 101) + 4;
+  let size = Math.floor(Math.random() * 21) + 4;
 
   for (let i = 0; i < size; ++i) {
-    let randomNum = Math.floor(Math.random() * 1000) + 10;
+    let randomNum = Math.floor(Math.random() * 1001) + 10;
     array[i] = randomNum;
   }
   //   let nullval = Math.floor(Math.random() * 10);

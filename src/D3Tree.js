@@ -14,6 +14,7 @@ import {
   InputLabel,
 } from '@material-ui/core';
 import styles from './buttonStyle.module.css';
+import ArrayBox from './ArrayBox';
 
 const width = window.screen.width;
 const height = window.screen.height;
@@ -26,6 +27,7 @@ function D3Tree() {
       children: [],
     },
   ]);
+  const [travseralData, setTravseral] = useState([]);
   const [inputData, setInput] = useState([]);
 
   const handleChange = (event) => {
@@ -131,7 +133,7 @@ function D3Tree() {
   const dfs = async (root) => {
     let node = root;
     let prev = null;
-
+    let array = [];
     if (!node || node === 'undefined') return;
     let stack = [];
 
@@ -145,6 +147,9 @@ function D3Tree() {
       if (node !== stack[stack.length - 1]) node = stack.pop();
       else node = null;
       node.nodeSvgShape = singleStyle;
+      //set the array for displaying the box
+      array.push(node.name);
+      setTravseral([...array]);
 
       //color effect
       if (prev) prev.nodeSvgShape = visitedStyle;
@@ -206,9 +211,11 @@ function D3Tree() {
       </div>
 
       <ReactNotification />
+
+      <ArrayBox data={travseralData} />
       <Tree
         data={heapData}
-        translate={{ x: width / 2, y: height / 3 }}
+        translate={{ x: width / 2, y: height / 4 }}
         orientation='vertical'
         textLayout={{
           textAnchor: 'start',
