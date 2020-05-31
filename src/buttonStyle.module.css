@@ -1,0 +1,15 @@
+.button {
+  background: linear-gradient(to right, #fe6b8b 50%, #ff8e53 50%);
+
+  color: white;
+  padding: 0 30px;
+  display: block;
+  height: 2rem;
+  text-transform: none;
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-out;
+}
+.button:hover {
+  background-position: left bottom;
+}

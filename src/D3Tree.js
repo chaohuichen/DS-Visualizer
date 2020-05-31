@@ -13,6 +13,8 @@ import {
   MenuItem,
   InputLabel,
 } from '@material-ui/core';
+import styles from './buttonStyle.module.css';
+
 const width = window.screen.width;
 const height = window.screen.height;
 
@@ -175,28 +177,24 @@ function D3Tree() {
         <Button
           variant='contained'
           color='primary'
+          className={styles.button}
           onClick={() => buildTree(validateDate())}
         >
-          GenerateTree
+          Generate Tree
         </Button>
         <Button
           variant='contained'
           color='primary'
+          className={styles.button}
           onClick={() => {
             buildTree(genernrateRandomArray());
           }}
         >
-          RandomTree
+          Random Tree
         </Button>
         <FormControl>
-          <InputLabel id='demo-customized-select-label'>
-            DFS Travseral
-          </InputLabel>
-          <Select
-            labelId='demo-customized-select-label'
-            id='demo-customized-select'
-            className='menuitem'
-          >
+          <InputLabel id=''>DFS Travseral</InputLabel>
+          <Select labelId='' id='' className='menuitem'>
             <MenuItem value={'preorder'}>Pre-Order</MenuItem>
             <MenuItem value={'inorder'}>In-Order</MenuItem>
             <MenuItem value={'postorder'}>Post-Order</MenuItem>
@@ -206,6 +204,7 @@ function D3Tree() {
           Go!
         </button>
       </div>
+
       <ReactNotification />
       <Tree
         data={heapData}

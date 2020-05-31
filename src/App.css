@@ -37,7 +37,14 @@ svg.custom path.link {
   color: white;
   height: fit-content;
 }
-
+@media screen and (max-width: 768px) {
+  .myheader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+}
 .treeWapper {
   width: 100%;
   height: 90vh;
@@ -48,8 +55,12 @@ svg.custom path.link {
 }
 
 .ipttext {
+  padding-top: 0.5rem;
   width: 25ch;
 }
 .menuitem {
   width: 20ch;
+}
+.mymuibutton {
+  text-transform: none;
 }

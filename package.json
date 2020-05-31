@@ -9,6 +9,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.5.0",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-d3-tree": "^1.16.1",
@@ -41,6 +42,8 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "css-loader": "^3.5.3",
+    "gh-pages": "^2.2.0",
+    "style-loader": "^1.2.1"
   }
 }
