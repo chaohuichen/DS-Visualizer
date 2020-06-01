@@ -59,7 +59,6 @@ function D3Tree() {
 
   const validateDate = () => {
     let dummyData = [];
-    console.log(inputData[0], inputData[inputData.length - 1]);
     if (inputData[0] !== "[" || inputData[inputData.length - 1] !== "]") {
       warning();
       return false;
@@ -68,8 +67,8 @@ function D3Tree() {
     let copy = inputData.slice(1, inputData.length - 1).split(",");
 
     for (let i = 0; i < copy.length; ++i) {
-      if (copy[i] === "null") {
-        dummyData.push(JSON.parse(copy[i]));
+      if (copy[i].trim() === "null") {
+        dummyData.push(null);
       } else {
         if (copy[i] === "") {
           warning();
@@ -228,6 +227,8 @@ function D3Tree() {
           orientation="vertical"
           textLayout={{
             textAnchor: "middle",
+            x: 0,
+            y: 0,
             transform: undefined,
           }}
           nodeSvgShape={svgCircle}
