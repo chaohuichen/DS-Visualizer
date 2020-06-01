@@ -227,9 +227,7 @@ function D3Tree() {
           translate={{ x: dimensions.width / 2, y: dimensions.height / 4 }}
           orientation="vertical"
           textLayout={{
-            textAnchor: "start",
-            x: -5,
-            y: 0,
+            textAnchor: "middle",
             transform: undefined,
           }}
           nodeSvgShape={svgCircle}
