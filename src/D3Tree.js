@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Tree from 'react-d3-tree';
 import ReactNotification from 'react-notifications-component';
 import { store } from 'react-notifications-component';
@@ -28,12 +28,24 @@ function D3Tree() {
     },
   ]);
   const [travseralData, setTravseral] = useState([]);
+
   const [inputData, setInput] = useState([]);
 
   const handleChange = (event) => {
     setInput(event.target.value);
   };
 
+  const treeContainer = useRef();
+
+  const [dimensions, setDimension] = useState({});
+  useEffect(() => {
+    setDimension(treeContainer.current.getBoundingClientRect());
+  }, []);
+
+  const [traversal, setTraversal] = useState('');
+  const handleSelect = (e) => {
+    setTraversal(e.target.value);
+  };
   const warning = () => {
     store.addNotification({
       title: 'Wrong Input',
@@ -52,7 +64,6 @@ function D3Tree() {
 
   const validateDate = () => {
     let dummyData = [];
-    console.log(inputData[0], inputData[inputData.length - 1]);
     if (inputData[0] !== '[' || inputData[inputData.length - 1] !== ']') {
       warning();
       return false;
@@ -61,8 +72,8 @@ function D3Tree() {
     let copy = inputData.slice(1, inputData.length - 1).split(',');
 
     for (let i = 0; i < copy.length; ++i) {
-      if (copy[i] === 'null') {
-        dummyData.push(JSON.parse(copy[i]));
+      if (copy[i].trim() === 'null') {
+        dummyData.push(null);
       } else {
         if (copy[i] === '') {
           warning();
@@ -198,8 +209,14 @@ function D3Tree() {
           Random Tree
         </Button>
         <FormControl>
-          <InputLabel id=''>DFS Travseral</InputLabel>
-          <Select labelId='' id='' className='menuitem'>
+          <InputLabel id='traversal-label'>DFS Travseral</InputLabel>
+          <Select
+            labelId='traversal-label'
+            id=''
+            className='menuitem'
+            onChange={handleSelect}
+            value={traversal}
+          >
             <MenuItem value={'preorder'}>Pre-Order</MenuItem>
             <MenuItem value={'inorder'}>In-Order</MenuItem>
             <MenuItem value={'postorder'}>Post-Order</MenuItem>
@@ -213,21 +230,24 @@ function D3Tree() {
       <ReactNotification />
 
       <ArrayBox data={travseralData} />
-      <Tree
-        data={heapData}
-        translate={{ x: width / 2, y: height / 4 }}
-        orientation='vertical'
-        textLayout={{
-          textAnchor: 'start',
-          x: -5,
-          y: 0,
-          transform: undefined,
-        }}
-        nodeSvgShape={svgCircle}
-        styles={style}
-        pathFunc='straight'
-        transitionDuration={0}
-      />
+
+      <section style={{ width: '100%', height: '100vh' }} ref={treeContainer}>
+        <Tree
+          data={heapData}
+          translate={{ x: dimensions.width / 2, y: dimensions.height / 4 }}
+          orientation='vertical'
+          textLayout={{
+            textAnchor: 'middle',
+            x: 0,
+            y: 0,
+            transform: undefined,
+          }}
+          nodeSvgShape={svgCircle}
+          styles={style}
+          pathFunc='straight'
+          transitionDuration={0}
+        />
+      </section>
     </div>
   );
 }
