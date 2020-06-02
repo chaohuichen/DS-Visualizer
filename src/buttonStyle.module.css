@@ -13,3 +13,27 @@
 .button:hover {
   background-position: left bottom;
 }
+
+.roundBtn {
+  display: block;
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+  color: #f5f5f5;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 0 3px gray;
+  text-transform: none;
+  font-size: 16px;
+  font-weight: bold;
+  /* background: #555777; */
+  background: linear-gradient(to right, #fe6b8b 50%, #ff8e53 50%);
+  color: white;
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-out;
+}
+.roundBtn:hover {
+  background-position: left bottom;
+}

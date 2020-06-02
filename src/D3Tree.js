@@ -12,21 +12,17 @@ import {
   FormControl,
   MenuItem,
   InputLabel,
+  IconButton,
 } from '@material-ui/core';
 import styles from './buttonStyle.module.css';
 import ArrayBox from './ArrayBox';
 
-const width = window.screen.width;
-const height = window.screen.height;
-
 //Tree
 function D3Tree() {
-  const [heapData, setHeap] = useState([
-    {
-      name: '1',
-      children: [],
-    },
-  ]);
+  const [heapData, setHeap] = useState({
+    name: '1',
+    children: [],
+  });
   const [travseralData, setTravseral] = useState([]);
 
   const [inputData, setInput] = useState([]);
@@ -139,13 +135,18 @@ function D3Tree() {
       left += 2;
       right += 2;
     }
+    setHeap({ ...arr[0] });
   };
 
   const dfs = async (root) => {
     let node = root;
     let prev = null;
     let array = [];
-    if (!node || node === 'undefined') return;
+    console.log('hello', root);
+    if (!node || node === 'undefined') {
+      warning();
+      return;
+    }
     let stack = [];
 
     while (stack.length || node) {
@@ -222,9 +223,14 @@ function D3Tree() {
             <MenuItem value={'postorder'}>Post-Order</MenuItem>
           </Select>
         </FormControl>
-        <button key='aKey' onClick={() => dfs(heapData)}>
+        <Button
+          variant='contained'
+          color='primary'
+          className={styles.roundBtn}
+          onClick={() => dfs(heapData)}
+        >
           Go!
-        </button>
+        </Button>
       </div>
 
       <ReactNotification />
