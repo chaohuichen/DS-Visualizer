@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import styles from './buttonStyle.module.css';
 import ArrayBox from './ArrayBox';
+import { inOrderDFS, postOrderDFS } from './DFS';
 
 //Tree
 function D3Tree() {
@@ -24,6 +25,12 @@ function D3Tree() {
     children: [],
   });
   const [travseralData, setTravseral] = useState([]);
+
+  const traversalAnimations = {
+    inorder: inOrderDFS,
+    postorder: postOrderDFS,
+    preorder: inOrderDFS
+  }
 
   const [inputData, setInput] = useState([]);
 
@@ -138,45 +145,6 @@ function D3Tree() {
     setHeap({ ...arr[0] });
   };
 
-  const dfs = async (root) => {
-    let node = root;
-    let prev = null;
-    let array = [];
-    console.log('hello', root);
-    if (!node || node === 'undefined') {
-      warning();
-      return;
-    }
-    let stack = [];
-
-    while (stack.length || node) {
-      while (node) {
-        stack.push(node);
-        if (node.children.length) node = node.children[0];
-        else node = null;
-      }
-
-      if (node !== stack[stack.length - 1]) node = stack.pop();
-      else node = null;
-      node.nodeSvgShape = singleStyle;
-      //set the array for displaying the box
-      array.push(node.name);
-      setTravseral([...array]);
-
-      //color effect
-      if (prev) prev.nodeSvgShape = visitedStyle;
-      prev = node;
-      setHeap({ ...heapData });
-      await sleep(800);
-
-      if (node.children[1]) node = node.children[1];
-      else node = null;
-    }
-    //color effect
-    if (prev) prev.nodeSvgShape = visitedStyle;
-    setHeap({ ...heapData });
-  };
-
   return (
     <div id='treeWrapper' className='treeWapper'>
       <div className='myheader'>
@@ -227,7 +195,8 @@ function D3Tree() {
           variant='contained'
           color='primary'
           className={styles.roundBtn}
-          onClick={() => dfs(heapData)}
+          traversals
+          onClick={() => traversalAnimations[traversal](heapData, setHeap, setTravseral, warning)}
         >
           Go!
         </Button>
@@ -236,7 +205,6 @@ function D3Tree() {
       <ReactNotification />
 
       <ArrayBox data={travseralData} />
-
       <section style={{ width: '100%', height: '100vh' }} ref={treeContainer}>
         <Tree
           data={heapData}
