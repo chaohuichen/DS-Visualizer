@@ -205,7 +205,6 @@ function D3Tree() {
       <ReactNotification />
 
       <ArrayBox data={travseralData} />
-s
       <section style={{ width: '100%', height: '100vh' }} ref={treeContainer}>
         <Tree
           data={heapData}
