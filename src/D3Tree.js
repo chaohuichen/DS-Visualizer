@@ -26,6 +26,12 @@ function D3Tree() {
   });
   const [travseralData, setTravseral] = useState([]);
 
+  const traversalAnimations = {
+    inorder: inOrderDFS,
+    postorder: postOrderDFS,
+    preorder: inOrderDFS
+  }
+
   const [inputData, setInput] = useState([]);
 
   const handleChange = (event) => {
@@ -189,7 +195,8 @@ function D3Tree() {
           variant='contained'
           color='primary'
           className={styles.roundBtn}
-          onClick={() => postOrderDFS(heapData, setHeap, setTravseral, warning)}
+          traversals
+          onClick={() => traversalAnimations[traversal](heapData, setHeap, setTravseral, warning)}
         >
           Go!
         </Button>
@@ -198,7 +205,7 @@ function D3Tree() {
       <ReactNotification />
 
       <ArrayBox data={travseralData} />
-
+s
       <section style={{ width: '100%', height: '100vh' }} ref={treeContainer}>
         <Tree
           data={heapData}
