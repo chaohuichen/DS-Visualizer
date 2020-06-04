@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 import styles from './buttonStyle.module.css';
 import ArrayBox from './ArrayBox';
-import { inOrderDFS, postOrderDFS } from './DFS';
+import { inOrderDFS, postOrderDFS, preOrderDFS } from './DFS';
 
 //Tree
 function D3Tree() {
@@ -29,8 +29,8 @@ function D3Tree() {
   const traversalAnimations = {
     inorder: inOrderDFS,
     postorder: postOrderDFS,
-    preorder: inOrderDFS
-  }
+    preorder: preOrderDFS,
+  };
 
   const [inputData, setInput] = useState([]);
 
@@ -40,14 +40,14 @@ function D3Tree() {
 
   const treeContainer = useRef();
 
-  const [dimensions, setDimension] = useState({});
+  const [dimensions, setDimension] = useState({ width: 0, height: 0 });
   useEffect(() => {
     setDimension(treeContainer.current.getBoundingClientRect());
   }, []);
 
-  const [traversal, setTraversal] = useState('');
+  const [traversal, setTraversal] = useState('inorder');
   const handleSelect = (e) => {
-    setTraversal(e.target.value);
+    setTraversal(e.target.value.toString());
   };
   const warning = () => {
     store.addNotification({
@@ -191,15 +191,21 @@ function D3Tree() {
             <MenuItem value={'postorder'}>Post-Order</MenuItem>
           </Select>
         </FormControl>
-        <Button
-          variant='contained'
-          color='primary'
-          className={styles.roundBtn}
-          traversals
-          onClick={() => traversalAnimations[traversal](heapData, setHeap, setTravseral, warning)}
-        >
-          Go!
-        </Button>
+        <div className={styles.roundBtnDiv}>
+          <button
+            className={styles.roundBtn}
+            onClick={() =>
+              traversalAnimations[traversal](
+                heapData,
+                setHeap,
+                setTravseral,
+                warning
+              )
+            }
+          >
+            Go!
+          </button>
+        </div>
       </div>
 
       <ReactNotification />
@@ -208,7 +214,10 @@ function D3Tree() {
       <section style={{ width: '100%', height: '100vh' }} ref={treeContainer}>
         <Tree
           data={heapData}
-          translate={{ x: dimensions.width / 2, y: dimensions.height / 4 }}
+          translate={{
+            x: dimensions ? +(dimensions.width / 2) : 0,
+            y: dimensions ? +(dimensions.height / 4) : 0,
+          }}
           orientation='vertical'
           textLayout={{
             textAnchor: 'middle',

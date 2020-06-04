@@ -1,19 +1,19 @@
-import { singleStyle, visitedStyle } from "./treeStyle";
-import { sleep } from "./ult.js";
+import { singleStyle, visitedStyle } from './treeStyle';
+import { sleep } from './ult.js';
 
 export const inOrderDFS = async (root, setTree, setArray, warning) => {
   let node = root;
   let prev = null;
   let array = [];
-  console.log("hello", root);
-  if (!node || node === "undefined") {
+
+  if (!node || node === 'undefined') {
     warning();
     return;
   }
   let stack = [];
 
   while (stack.length || node) {
-    console.log("running in order");
+    console.log('running in order');
     while (node) {
       stack.push(node);
       if (node.children.length) node = node.children[0];
@@ -42,7 +42,7 @@ export const inOrderDFS = async (root, setTree, setArray, warning) => {
 };
 
 export const postOrderDFS = async (root, setTree, setArray, warning) => {
-  if (!root || root === "undefined") {
+  if (!root || root === 'undefined') {
     warning();
     return;
   }
@@ -82,4 +82,38 @@ export const postOrderDFS = async (root, setTree, setArray, warning) => {
   }
   if (prev) prev.nodeSvgShape = visitedStyle;
   setTree({ ...root });
+};
+
+export const preOrderDFS = async (root, setTree, setArray, warning) => {
+  let node = root;
+  let prev = null;
+  let array = [];
+
+  if (!node || node === 'undefined') {
+    warning();
+    return;
+  }
+  let stack = [root];
+
+  while (stack.length || node) {
+    node = stack.pop();
+    if (node) {
+      node.nodeSvgShape = singleStyle;
+      //set the array for displaying the box
+      array.push(node.name);
+    }
+    setArray([...array]);
+    //color effect
+    if (prev) prev.nodeSvgShape = visitedStyle;
+    prev = node;
+    setTree({ ...root });
+    await sleep(800);
+    if (node && node.children[1]) stack.push(node.children[1]);
+    if (node && node.children[0]) stack.push(node.children[0]);
+  }
+  //color effect
+  if (prev) prev.nodeSvgShape = visitedStyle;
+  setTree({ ...root });
+  console.log('end', array);
+  return array;
 };
