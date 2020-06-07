@@ -114,6 +114,6 @@ export const preOrderDFS = async (root, setTree, setArray, warning) => {
   //color effect
   if (prev) prev.nodeSvgShape = visitedStyle;
   setTree({ ...root });
-  console.log('end', array);
+
   return array;
 };

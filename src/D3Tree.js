@@ -17,7 +17,7 @@ import {
 import styles from './buttonStyle.module.css';
 import ArrayBox from './ArrayBox';
 import { inOrderDFS, postOrderDFS, preOrderDFS } from './DFS';
-
+import breathFirstSearch from './BFS';
 //Tree
 function D3Tree() {
   const [heapData, setHeap] = useState({
@@ -27,9 +27,10 @@ function D3Tree() {
   const [travseralData, setTravseral] = useState([]);
 
   const traversalAnimations = {
-    inorder: inOrderDFS,
-    postorder: postOrderDFS,
-    preorder: preOrderDFS,
+    1: preOrderDFS,
+    2: inOrderDFS,
+    3: postOrderDFS,
+    4: breathFirstSearch,
   };
 
   const [inputData, setInput] = useState([]);
@@ -45,9 +46,10 @@ function D3Tree() {
     setDimension(treeContainer.current.getBoundingClientRect());
   }, []);
 
-  const [traversal, setTraversal] = useState('inorder');
+  const [traversal, setTraversal] = useState(1);
   const handleSelect = (e) => {
-    setTraversal(e.target.value.toString());
+    console.log(e.target.value);
+    setTraversal(e.target.value);
   };
   const warning = () => {
     store.addNotification({
@@ -178,17 +180,16 @@ function D3Tree() {
           Random Tree
         </Button>
         <FormControl>
-          <InputLabel id='traversal-label'>DFS Travseral</InputLabel>
+          <InputLabel id='traversal-label'>Tree Travseral</InputLabel>
           <Select
-            labelId='traversal-label'
-            id=''
             className='menuitem'
             onChange={handleSelect}
             value={traversal}
           >
-            <MenuItem value={'preorder'}>Pre-Order</MenuItem>
-            <MenuItem value={'inorder'}>In-Order</MenuItem>
-            <MenuItem value={'postorder'}>Post-Order</MenuItem>
+            <MenuItem value={1}>Pre-Order-DFS</MenuItem>
+            <MenuItem value={2}>In-Order-DFS</MenuItem>
+            <MenuItem value={3}>Post-Order-DFS</MenuItem>
+            <MenuItem value={4}>Breath-First-Search</MenuItem>
           </Select>
         </FormControl>
         <div className={styles.roundBtnDiv}>
