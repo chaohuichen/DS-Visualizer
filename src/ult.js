@@ -19,3 +19,5 @@ export const sleep = (milliseconds) => {
     setTimeout(resolve, milliseconds);
   });
 };
+
+export const checkBalance = (tree) => {};
