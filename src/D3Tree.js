@@ -33,7 +33,7 @@ const traversalAnimations = {
 //Tree
 function D3Tree() {
   //set the tree val
-  const [heapData, setHeap] = useState(defaultTree);
+  const [heapData, setHeap] = useState([]);
   //set the travseral data for box
   const [travseralData, setTravseralData] = useState([]);
   //set the travseral method
@@ -218,8 +218,8 @@ function D3Tree() {
         <div className={styles.roundBtnDiv}>
           <button
             className={styles.roundBtn}
-            onClick={async () => {
-              await setHeap(defaultTree);
+            onClick={() => {
+              setHeap([]);
               setTravseralData([]);
             }}
           >
@@ -232,24 +232,26 @@ function D3Tree() {
 
       <ArrayBox data={travseralData} />
       <section style={{ width: '100%', height: '100vh' }} ref={treeContainer}>
-        <Tree
-          data={heapData}
-          translate={{
-            x: dimensions ? +(dimensions.width / 2) : 0,
-            y: dimensions ? +(dimensions.height / 4) : 0,
-          }}
-          orientation='vertical'
-          textLayout={{
-            textAnchor: 'middle',
-            x: 0,
-            y: 0,
-            transform: undefined,
-          }}
-          nodeSvgShape={svgCircle}
-          styles={style}
-          pathFunc='straight'
-          transitionDuration={0}
-        />
+        {heapData.length !== 0 && (
+          <Tree
+            data={heapData}
+            translate={{
+              x: dimensions ? +(dimensions.width / 2) : 0,
+              y: dimensions ? +(dimensions.height / 4) : 0,
+            }}
+            orientation='vertical'
+            textLayout={{
+              textAnchor: 'middle',
+              x: 0,
+              y: 0,
+              transform: undefined,
+            }}
+            nodeSvgShape={svgCircle}
+            styles={style}
+            pathFunc='straight'
+            transitionDuration={0}
+          />
+        )}
       </section>
     </div>
   );
