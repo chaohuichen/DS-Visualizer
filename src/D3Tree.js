@@ -18,21 +18,27 @@ import styles from './buttonStyle.module.css';
 import ArrayBox from './ArrayBox';
 import { inOrderDFS, postOrderDFS, preOrderDFS } from './DFS';
 import breathFirstSearch from './BFS';
+
+let defaultTree = {
+  name: '1',
+  children: [],
+};
+
+const traversalAnimations = {
+  1: preOrderDFS,
+  2: inOrderDFS,
+  3: postOrderDFS,
+  4: breathFirstSearch,
+};
 //Tree
 function D3Tree() {
-  const [heapData, setHeap] = useState({
-    name: '1',
-    children: [],
-  });
-  const [travseralData, setTravseral] = useState([]);
-
-  const traversalAnimations = {
-    1: preOrderDFS,
-    2: inOrderDFS,
-    3: postOrderDFS,
-    4: breathFirstSearch,
-  };
-
+  //set the tree val
+  const [heapData, setHeap] = useState(defaultTree);
+  //set the travseral data for box
+  const [travseralData, setTravseralData] = useState([]);
+  //set the travseral method
+  const [traversalMethod, setTraversal] = useState(1);
+  //set the user input data
   const [inputData, setInput] = useState([]);
 
   const handleChange = (event) => {
@@ -40,17 +46,18 @@ function D3Tree() {
   };
 
   const treeContainer = useRef();
-
+  //set the tree in center by getting the dimensions
   const [dimensions, setDimension] = useState({ width: 0, height: 0 });
+
   useEffect(() => {
     setDimension(treeContainer.current.getBoundingClientRect());
   }, []);
 
-  const [traversal, setTraversal] = useState(1);
   const handleSelect = (e) => {
-    console.log(e.target.value);
     setTraversal(e.target.value);
   };
+
+  //warning function for display the card
   const warning = () => {
     store.addNotification({
       title: 'Wrong Input',
@@ -67,7 +74,8 @@ function D3Tree() {
     });
   };
 
-  const validateDate = () => {
+  //validate the input function
+  const validateData = () => {
     let dummyData = [];
     if (inputData[0] !== '[' || inputData[inputData.length - 1] !== ']') {
       warning();
@@ -165,7 +173,7 @@ function D3Tree() {
           variant='contained'
           color='primary'
           className={styles.button}
-          onClick={() => buildTree(validateDate())}
+          onClick={() => buildTree(validateData())}
         >
           Generate Tree
         </Button>
@@ -184,7 +192,7 @@ function D3Tree() {
           <Select
             className='menuitem'
             onChange={handleSelect}
-            value={traversal}
+            value={traversalMethod}
           >
             <MenuItem value={1}>Pre-Order-DFS</MenuItem>
             <MenuItem value={2}>In-Order-DFS</MenuItem>
@@ -196,15 +204,26 @@ function D3Tree() {
           <button
             className={styles.roundBtn}
             onClick={() =>
-              traversalAnimations[traversal](
+              traversalAnimations[traversalMethod](
                 heapData,
                 setHeap,
-                setTravseral,
+                setTravseralData,
                 warning
               )
             }
           >
             Go!
+          </button>
+        </div>
+        <div className={styles.roundBtnDiv}>
+          <button
+            className={styles.roundBtn}
+            onClick={async () => {
+              await setHeap(defaultTree);
+              setTravseralData([]);
+            }}
+          >
+            Clear!
           </button>
         </div>
       </div>
