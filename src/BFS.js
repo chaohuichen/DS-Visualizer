@@ -5,7 +5,7 @@ const breathFirstSearch = async (root, setTree, setArray, warning) => {
   let prev = null;
   let array = [];
 
-  if (!node || node === 'undefined') {
+  if (!node || node === 'undefined' || node.length === 0) {
     warning();
     return;
   }

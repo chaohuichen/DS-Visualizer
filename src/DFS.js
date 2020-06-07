@@ -6,7 +6,7 @@ export const inOrderDFS = async (root, setTree, setArray, warning) => {
   let prev = null;
   let array = [];
 
-  if (!node || node === 'undefined') {
+  if (!node || node === 'undefined' || node.length === 0) {
     warning();
     return;
   }
@@ -42,7 +42,7 @@ export const inOrderDFS = async (root, setTree, setArray, warning) => {
 };
 
 export const postOrderDFS = async (root, setTree, setArray, warning) => {
-  if (!root || root === 'undefined') {
+  if (!root || root === 'undefined' || root.length === 0) {
     warning();
     return;
   }
@@ -89,7 +89,7 @@ export const preOrderDFS = async (root, setTree, setArray, warning) => {
   let prev = null;
   let array = [];
 
-  if (!node || node === 'undefined') {
+  if (!node || node === 'undefined' || root.length === 0) {
     warning();
     return;
   }

@@ -218,7 +218,8 @@ function D3Tree() {
         <div className={styles.roundBtnDiv}>
           <button
             className={styles.roundBtn}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               setHeap([]);
               setTravseralData([]);
             }}
